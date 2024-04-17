@@ -1,4 +1,6 @@
-package com.melvin.galacticguide.guide.domain
+package com.melvin.galacticguide.guide.domain.model
+
+import com.melvin.galacticguide.guide.domain.getInitials
 
 data class Character(
     val name: String,
@@ -8,8 +10,7 @@ data class Character(
     val skinColor: String,
     val eyeColor: String,
     val birthYear: String,
-    val gender: String,
-    val url: String
+    val gender: String
 ) {
     val initials: String get() = getInitials(name)
 }
