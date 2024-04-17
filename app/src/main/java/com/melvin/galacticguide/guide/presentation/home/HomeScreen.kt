@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.melvin.galacticguide.guide.domain.model.Character
 import com.melvin.galacticguide.guide.presentation.component.CharacterRow
 import com.melvin.galacticguide.guide.presentation.home.viewmodel.HomeState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,7 +25,8 @@ import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun HomeScreen(
-    state: StateFlow<HomeState>
+    state: StateFlow<HomeState>,
+    onCharacterClick: (Character?) -> Unit
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize()
@@ -37,11 +39,12 @@ fun HomeScreen(
             contentPadding = PaddingValues(vertical = 24.dp)
         ) {
             items(characters.itemCount) { index ->
+                val character = characters[index]
                 CharacterRow(
-                    name = characters[index]?.name ?: "",
-                    initials = characters[index]?.initials ?: ""
+                    name = character?.name ?: "",
+                    initials = character?.initials ?: ""
                 ) {
-                    // TODO
+                    onCharacterClick(character)
                 }
             }
 
@@ -87,5 +90,5 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(MutableStateFlow(HomeState()))
+    HomeScreen(MutableStateFlow(HomeState())) {}
 }

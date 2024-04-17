@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.melvin.galacticguide.guide.presentation.home.HomeScreen
-import com.melvin.galacticguide.guide.presentation.home.viewmodel.HomeViewModel
 import com.melvin.galacticguide.ui.theme.GalacticGuideTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,10 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val viewmodel: HomeViewModel = hiltViewModel()
-                    HomeScreen(
-                        state = viewmodel.uiState
-                    )
+                    GuideNavGraph()
                 }
             }
         }

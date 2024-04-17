@@ -18,5 +18,7 @@ data class CharacterResponse(
     @Json(name = "birth_year")
     val birthYear: String,
     @Json(name = "gender")
-    val gender: String
+    val gender: String,
+    @Json(name = "url")
+    val url: String
 )

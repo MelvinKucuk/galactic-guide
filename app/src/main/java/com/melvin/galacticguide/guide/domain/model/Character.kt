@@ -10,7 +10,8 @@ data class Character(
     val skinColor: String,
     val eyeColor: String,
     val birthYear: String,
-    val gender: String
+    val gender: String,
+    val id: Int
 ) {
     val initials: String get() = getInitials(name)
 }

@@ -3,8 +3,8 @@ package com.melvin.galacticguide.guide.data.remote.pagination
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.melvin.galacticguide.core.data.Resource
-import com.melvin.galacticguide.core.data.mapper.toDomain
 import com.melvin.galacticguide.core.data.remote.safeApiCall
+import com.melvin.galacticguide.guide.data.mapper.toDomain
 import com.melvin.galacticguide.guide.data.remote.CharactersService
 import com.melvin.galacticguide.guide.domain.model.Character
 
