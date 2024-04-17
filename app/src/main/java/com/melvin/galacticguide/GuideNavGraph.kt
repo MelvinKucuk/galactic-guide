@@ -27,8 +27,8 @@ fun GuideNavGraph(
     NavHost(navController = navController, startDestination = GuideDestinations.HOME_ROUTE) {
         composable(GuideDestinations.HOME_ROUTE) {
             val viewModel: HomeViewModel = hiltViewModel()
-
-            HomeScreen(state = viewModel.uiState) { selectedCharacter ->
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            HomeScreen(state = state) { selectedCharacter ->
                 navActions.navigateToDetail(selectedCharacter?.id)
             }
         }
@@ -40,8 +40,8 @@ fun GuideNavGraph(
             )
         ) {
             val viewModel: DetailViewModel = hiltViewModel()
-            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-            DetailScreen(name = uiState.character?.name ?: "")
+            val state by viewModel.uiState.collectAsStateWithLifecycle()
+            DetailScreen(state)
         }
     }
 }

@@ -9,30 +9,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.melvin.galacticguide.guide.domain.model.Character
 import com.melvin.galacticguide.guide.presentation.component.CharacterRow
 import com.melvin.galacticguide.guide.presentation.home.viewmodel.HomeState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun HomeScreen(
-    state: StateFlow<HomeState>,
+    state: HomeState,
     onCharacterClick: (Character?) -> Unit
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize()
     ) { padding ->
-        val uiState by state.collectAsStateWithLifecycle()
-        val characters = uiState.characterList.collectAsLazyPagingItems()
+        val characters = state.characterList.collectAsLazyPagingItems()
         LazyColumn(
             modifier = Modifier.padding(padding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -90,5 +85,5 @@ fun HomeScreen(
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    HomeScreen(MutableStateFlow(HomeState())) {}
+    HomeScreen(HomeState()) {}
 }

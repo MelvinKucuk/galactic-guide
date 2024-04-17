@@ -16,6 +16,9 @@ fun CharacterResponse.toDomain() =
         id = getIdFromUrl(url)
     )
 
-private fun getIdFromUrl(url: String): Int {
-    return url[url.lastIndex - 1].digitToInt()
+private fun getIdFromUrl(url: String): Int? {
+    val parts = url.split("/")
+    val idString = parts[parts.lastIndex - 1]
+
+    return idString.toIntOrNull()
 }

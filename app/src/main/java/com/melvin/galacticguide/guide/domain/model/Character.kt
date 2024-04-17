@@ -11,7 +11,7 @@ data class Character(
     val eyeColor: String,
     val birthYear: String,
     val gender: String,
-    val id: Int
+    val id: Int?
 ) {
     val initials: String get() = getInitials(name)
 }

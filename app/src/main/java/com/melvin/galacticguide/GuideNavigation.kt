@@ -25,7 +25,9 @@ class GuideNavigationActions(private val navController: NavHostController) {
         characterId?.let {
             navController.navigate(
                 "$DETAILS_SCREEN?$CHARACTER_ARG=$it"
-            )
+            ) {
+                launchSingleTop = true
+            }
         }
     }
 }

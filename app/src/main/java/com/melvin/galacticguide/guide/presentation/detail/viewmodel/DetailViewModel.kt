@@ -30,7 +30,8 @@ class DetailViewModel @Inject constructor(
                 val character = charactersRepository.getCharacterById(it)
                 _uiState.update {
                     it.copy(
-                        character = character
+                        character = character,
+                        isLoading = false
                     )
                 }
             }
