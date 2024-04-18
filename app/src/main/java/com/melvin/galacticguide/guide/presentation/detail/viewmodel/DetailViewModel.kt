@@ -29,10 +29,17 @@ class DetailViewModel @Inject constructor(
             viewModelScope.launch {
                 val character = charactersRepository.getCharacterById(it)
                 _uiState.update {
-                    it.copy(
-                        character = character,
-                        isLoading = false
-                    )
+                    if (character != null) {
+                        it.copy(
+                            character = character,
+                            isLoading = false
+                        )
+                    } else {
+                        it.copy(
+                            errorMessage = "An error happened fetching the data",
+                            isLoading = false
+                        )
+                    }
                 }
             }
         }

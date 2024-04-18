@@ -15,6 +15,7 @@ import com.melvin.galacticguide.GuideDestinationsArgs.CHARACTER_ARG
 import com.melvin.galacticguide.guide.presentation.detail.DetailScreen
 import com.melvin.galacticguide.guide.presentation.detail.viewmodel.DetailViewModel
 import com.melvin.galacticguide.guide.presentation.home.HomeScreen
+import com.melvin.galacticguide.guide.presentation.home.viewmodel.HomeEvent
 import com.melvin.galacticguide.guide.presentation.home.viewmodel.HomeViewModel
 
 @Composable
@@ -28,8 +29,12 @@ fun GuideNavGraph(
         composable(GuideDestinations.HOME_ROUTE) {
             val viewModel: HomeViewModel = hiltViewModel()
             val state by viewModel.uiState.collectAsStateWithLifecycle()
-            HomeScreen(state = state) { selectedCharacter ->
-                navActions.navigateToDetail(selectedCharacter?.id)
+            HomeScreen(state = state) { event ->
+                if (event is HomeEvent.OnCharacterClick) {
+                    navActions.navigateToDetail(event.selectedCharacter?.id)
+                } else {
+                    viewModel.onEvent(event)
+                }
             }
         }
 

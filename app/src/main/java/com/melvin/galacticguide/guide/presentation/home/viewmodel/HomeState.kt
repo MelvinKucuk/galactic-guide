@@ -6,5 +6,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 data class HomeState(
-    val characterList: Flow<PagingData<Character>> = flowOf()
+    val characterList: Flow<PagingData<Character>> = flowOf(),
+    val errorMessage: String? = null
 )

@@ -19,15 +19,15 @@ class DetailViewModelTest {
 
     private val repository: CharactersRepository = mockk()
 
+    private val savedStateHandle = SavedStateHandle().apply {
+        set(GuideDestinationsArgs.CHARACTER_ARG, 1)
+    }
+
     private lateinit var viewModel: DetailViewModel
 
     @Before
     fun setUp() {
         coEvery { repository.getCharacterById(any()) } returns mockCharacter
-
-        val savedStateHandle = SavedStateHandle().apply {
-            set(GuideDestinationsArgs.CHARACTER_ARG, 1)
-        }
 
         viewModel = DetailViewModel(
             repository,
@@ -46,6 +46,47 @@ class DetailViewModelTest {
                 character = mockCharacter,
                 isLoading = false
             ),
+            result
+        )
+    }
+
+    @Test
+    fun `validate error response update error correctly`() {
+        coEvery { repository.getCharacterById(any()) } returns null
+
+        viewModel = DetailViewModel(
+            repository,
+            savedStateHandle
+        )
+
+        coroutineRule.dispatcher.scheduler.advanceUntilIdle()
+
+        val result = viewModel.uiState.value
+
+        assertEquals(
+            DetailState(
+                errorMessage = "An error happened fetching the data",
+                isLoading = false
+            ),
+            result
+        )
+    }
+
+    @Test
+    fun `validate null arguments does not update the state`() {
+        val savedStateHandle = SavedStateHandle().apply {
+            set(GuideDestinationsArgs.CHARACTER_ARG, 1)
+        }
+
+        viewModel = DetailViewModel(
+            repository,
+            savedStateHandle
+        )
+
+        val result = viewModel.uiState.value
+
+        assertEquals(
+            DetailState(),
             result
         )
     }

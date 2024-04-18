@@ -31,4 +31,18 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    fun onEvent(event: HomeEvent) {
+        when (event) {
+            is HomeEvent.OnError -> {
+                _uiState.update {
+                    it.copy(
+                        errorMessage = event.message,
+                    )
+                }
+            }
+
+            else -> {}
+        }
+    }
 }

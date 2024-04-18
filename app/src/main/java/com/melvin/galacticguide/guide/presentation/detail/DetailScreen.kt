@@ -21,10 +21,13 @@ import androidx.compose.ui.unit.dp
 import com.melvin.galacticguide.R
 import com.melvin.galacticguide.guide.domain.model.Character
 import com.melvin.galacticguide.guide.presentation.component.DetailRow
+import com.melvin.galacticguide.guide.presentation.component.ErrorComponent
 import com.melvin.galacticguide.guide.presentation.detail.viewmodel.DetailState
 
 @Composable
-fun DetailScreen(state: DetailState) {
+fun DetailScreen(
+    state: DetailState,
+) {
     if (state.isLoading) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -33,49 +36,57 @@ fun DetailScreen(state: DetailState) {
             CircularProgressIndicator()
         }
     } else {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
+        if (state.errorMessage != null) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                ErrorComponent(message = state.errorMessage)
+            }
+        } else {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = state.character?.name ?: "",
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
-            )
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = state.character?.name ?: "",
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            DetailRow(
-                name = stringResource(R.string.height),
-                value = state.character?.height ?: ""
-            )
-            DetailRow(name = stringResource(R.string.mass), value = state.character?.mass ?: "")
-            DetailRow(
-                name = stringResource(R.string.hair_color),
-                value = state.character?.hairColor ?: ""
-            )
-            DetailRow(
-                name = stringResource(R.string.skin_color),
-                value = state.character?.skinColor ?: ""
-            )
-            DetailRow(
-                name = stringResource(R.string.eye_color),
-                value = state.character?.eyeColor ?: ""
-            )
-            DetailRow(
-                name = stringResource(R.string.birth_year),
-                value = state.character?.birthYear ?: ""
-            )
-            DetailRow(
-                name = stringResource(R.string.gender),
-                value = state.character?.gender ?: ""
-            )
-
+                DetailRow(
+                    name = stringResource(R.string.height),
+                    value = state.character?.height ?: ""
+                )
+                DetailRow(name = stringResource(R.string.mass), value = state.character?.mass ?: "")
+                DetailRow(
+                    name = stringResource(R.string.hair_color),
+                    value = state.character?.hairColor ?: ""
+                )
+                DetailRow(
+                    name = stringResource(R.string.skin_color),
+                    value = state.character?.skinColor ?: ""
+                )
+                DetailRow(
+                    name = stringResource(R.string.eye_color),
+                    value = state.character?.eyeColor ?: ""
+                )
+                DetailRow(
+                    name = stringResource(R.string.birth_year),
+                    value = state.character?.birthYear ?: ""
+                )
+                DetailRow(
+                    name = stringResource(R.string.gender),
+                    value = state.character?.gender ?: ""
+                )
+            }
         }
     }
 }
