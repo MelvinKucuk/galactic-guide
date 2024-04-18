@@ -83,7 +83,13 @@ dependencies {
     implementation(libs.androidx.paging)
     implementation(libs.androidx.paging.compose)
 
+    // Unit test
     testImplementation(libs.junit)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // Instrumented test
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

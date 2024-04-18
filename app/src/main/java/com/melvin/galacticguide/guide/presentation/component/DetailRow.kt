@@ -58,5 +58,4 @@ fun DetailRow(
 @Composable
 private fun DetailRowPreview() {
     DetailRow("Height", "177 cm")
-
 }
